@@ -1,7 +1,7 @@
 import { forwardRef, type ButtonHTMLAttributes } from "react";
 import { cn } from "@/lib/cn";
 
-type Variant = "primary" | "secondary" | "ghost" | "danger";
+type Variant = "primary" | "secondary";
 type Size = "sm" | "md" | "lg";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -21,15 +21,6 @@ const variantStyles: Record<Variant, React.CSSProperties> = {
     color: "var(--foreground-muted)",
     border: "1px solid var(--border-strong)",
   },
-  ghost: {
-    background: "transparent",
-    color: "var(--foreground-muted)",
-  },
-  danger: {
-    background: "linear-gradient(135deg, #ef4444, #dc2626)",
-    color: "white",
-    boxShadow: "0 4px 14px rgba(248, 113, 113, 0.3)",
-  },
 };
 
 const sizeStyles: Record<Size, string> = {
@@ -39,19 +30,7 @@ const sizeStyles: Record<Size, string> = {
 };
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      className,
-      style,
-      variant = "primary",
-      size = "md",
-      loading,
-      disabled,
-      children,
-      ...props
-    },
-    ref
-  ) => {
+  ({ className, style, variant = "primary", size = "md", loading, disabled, children, ...props }, ref) => {
     return (
       <button
         ref={ref}
@@ -68,25 +47,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {loading && (
-          <svg
-            className="h-4 w-4 animate-spin"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <circle
-              className="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              strokeWidth="4"
-            />
-            <path
-              className="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-            />
+          <svg className="h-4 w-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
           </svg>
         )}
         {children}
@@ -97,4 +60,3 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
 Button.displayName = "Button";
 export { Button };
-export type { ButtonProps };

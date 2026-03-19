@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/cn";
 import type { Citation } from "@/lib/schemas";
-import { FileText, User, Sparkles, ExternalLink } from "lucide-react";
+import { FileText, User, Sparkles } from "lucide-react";
 
 interface ChatMessageProps {
   role: "user" | "assistant";

@@ -3,17 +3,16 @@
 :root {
   --background: #0d0d14;
   --surface: #13131f;
+  --surface: #13131f;
   --surface-2: #1a1a2e;
-  --surface-3: #1e1e35;
   --border: rgba(255, 255, 255, 0.08);
   --border-strong: rgba(255, 255, 255, 0.14);
   --foreground: #f0f0ff;
   --foreground-muted: #8b8ba8;
   --foreground-subtle: #5a5a7a;
   --accent: #7c6ff7;
-  --accent-hover: #9088f9;
-  --accent-glow: rgba(124, 111, 247, 0.35);
   --accent-subtle: rgba(124, 111, 247, 0.12);
+  --accent-glow: rgba(124, 111, 247, 0.35);
   --accent-2: #06d6a0;
   --accent-2-subtle: rgba(6, 214, 160, 0.12);
   --danger: #f87171;
@@ -28,7 +27,6 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 * {
@@ -49,7 +47,6 @@ body {
   background-attachment: fixed;
 }
 
-/* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 4px;
 }
@@ -65,60 +62,4 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.18);
-}
-
-/* Glass card effect */
-.glass {
-  background: var(--glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--border);
-}
-
-.glass-strong {
-  background: var(--glass-strong);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border-strong);
-}
-
-/* Glow effects */
-.glow-accent {
-  box-shadow: 0 0 20px var(--accent-glow);
-}
-
-/* Gradient text */
-.gradient-text {
-  background: linear-gradient(135deg, #a78bfa, #7c6ff7, #06d6a0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Smooth animations */
-@keyframes fade-in {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes slide-in-left {
-  from { opacity: 0; transform: translateX(-12px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 8px var(--accent-glow); }
-  50% { box-shadow: 0 0 24px var(--accent-glow), 0 0 48px rgba(124, 111, 247, 0.15); }
-}
-
-.animate-fade-in {
-  animation: fade-in 0.3s ease-out;
-}
-
-.animate-slide-in {
-  animation: slide-in-left 0.25s ease-out;
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
 }

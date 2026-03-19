@@ -20,9 +20,9 @@ export const uploadRequestSchema = z.object({
 
 export type UploadRequest = z.infer<typeof uploadRequestSchema>;
 
-// ---- Response Schemas ----
+// ---- Response Types ----
 
-export const citationSchema = z.object({
+const citationSchema = z.object({
   source: z.string(),
   chunk_index: z.number(),
   preview: z.string(),
@@ -30,14 +30,12 @@ export const citationSchema = z.object({
 
 export type Citation = z.infer<typeof citationSchema>;
 
-export const chatResponseSchema = z.object({
-  ok: z.boolean(),
-  answer: z.string(),
-  thread_id: z.string(),
-  citations: z.array(citationSchema),
-});
-
-export type ChatResponse = z.infer<typeof chatResponseSchema>;
+export type ChatResponse = {
+  ok: boolean;
+  answer: string;
+  thread_id: string;
+  citations: Citation[];
+};
 
 export const ingestionResponseSchema = z.object({
   ok: z.boolean(),
@@ -47,16 +45,3 @@ export const ingestionResponseSchema = z.object({
 });
 
 export type IngestionResponse = z.infer<typeof ingestionResponseSchema>;
-
-export const errorResponseSchema = z.object({
-  ok: z.literal(false),
-  message: z.string(),
-});
-
-export type ErrorResponse = z.infer<typeof errorResponseSchema>;
-
-export const healthResponseSchema = z.object({
-  status: z.string(),
-});
-
-export type HealthResponse = z.infer<typeof healthResponseSchema>;
