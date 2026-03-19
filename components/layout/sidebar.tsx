@@ -5,11 +5,12 @@ import { UploadForm } from "@/components/upload/upload-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
-  Database,
+  Layers,
   Settings,
   X,
   PanelLeftClose,
   PanelLeftOpen,
+  ChevronRight,
 } from "lucide-react";
 import { cn } from "@/lib/cn";
 
@@ -41,46 +42,98 @@ export function Sidebar({
       {/* Mobile overlay */}
       {open && (
         <div
-          className="fixed inset-0 z-40 bg-black/30 lg:hidden"
+          className="fixed inset-0 z-40 lg:hidden"
+          style={{ background: "rgba(0, 0, 0, 0.6)", backdropFilter: "blur(4px)" }}
           onClick={onToggle}
         />
       )}
 
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 flex w-80 flex-col border-r border-gray-200 bg-white transition-transform duration-200 dark:border-gray-700 dark:bg-gray-900",
+          "fixed inset-y-0 left-0 z-50 flex w-72 flex-col transition-transform duration-300 ease-out",
           "lg:static lg:translate-x-0",
           open ? "translate-x-0" : "-translate-x-full"
         )}
+        style={{
+          background: "linear-gradient(180deg, rgba(19, 19, 31, 0.98) 0%, rgba(13, 13, 20, 0.98) 100%)",
+          borderRight: "1px solid rgba(255, 255, 255, 0.07)",
+        }}
       >
-        <div className="flex items-center justify-between border-b border-gray-200 p-4 dark:border-gray-700">
-          <div className="flex items-center gap-2">
-            <Database className="h-5 w-5 text-blue-600" />
-            <h2 className="font-semibold">Knowledge Base</h2>
+        {/* Header */}
+        <div
+          className="flex items-center justify-between p-4"
+          style={{ borderBottom: "1px solid rgba(255, 255, 255, 0.06)" }}
+        >
+          <div className="flex items-center gap-2.5">
+            <div
+              className="flex h-8 w-8 items-center justify-center rounded-lg"
+              style={{
+                background: "linear-gradient(135deg, rgba(124, 111, 247, 0.3), rgba(6, 214, 160, 0.2))",
+                border: "1px solid rgba(124, 111, 247, 0.3)",
+              }}
+            >
+              <Layers className="h-4 w-4" style={{ color: "var(--accent)" }} />
+            </div>
+            <div>
+              <h2
+                className="text-sm font-semibold leading-none"
+                style={{ color: "var(--foreground)" }}
+              >
+                Knowledge Base
+              </h2>
+              <p
+                className="text-[10px] mt-0.5 leading-none"
+                style={{ color: "var(--foreground-subtle)" }}
+              >
+                Document management
+              </p>
+            </div>
           </div>
+
           <div className="flex items-center gap-1">
             <button
               onClick={() => setShowSettings(!showSettings)}
-              className="rounded-md p-1.5 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800"
+              className="rounded-lg p-1.5 transition-all duration-150"
+              style={{ color: "var(--foreground-subtle)" }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLElement).style.background = "var(--glass-strong)";
+                (e.currentTarget as HTMLElement).style.color = "var(--accent)";
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLElement).style.background = "transparent";
+                (e.currentTarget as HTMLElement).style.color = "var(--foreground-subtle)";
+              }}
             >
-              {showSettings ? (
-                <X className="h-4 w-4" />
-              ) : (
-                <Settings className="h-4 w-4" />
-              )}
+              {showSettings ? <X className="h-4 w-4" /> : <Settings className="h-4 w-4" />}
             </button>
             <button
               onClick={onToggle}
-              className="rounded-md p-1.5 text-gray-500 hover:bg-gray-100 lg:hidden dark:hover:bg-gray-800"
+              className="lg:hidden rounded-lg p-1.5 transition-all duration-150"
+              style={{ color: "var(--foreground-subtle)" }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLElement).style.background = "var(--glass-strong)";
+                (e.currentTarget as HTMLElement).style.color = "var(--foreground)";
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLElement).style.background = "transparent";
+                (e.currentTarget as HTMLElement).style.color = "var(--foreground-subtle)";
+              }}
             >
               <PanelLeftClose className="h-4 w-4" />
             </button>
           </div>
         </div>
 
+        {/* Settings panel */}
         {showSettings && (
-          <div className="border-b border-gray-200 p-4 dark:border-gray-700">
-            <label className="mb-1.5 block text-xs font-medium text-gray-500">
+          <div
+            className="p-4 animate-fade-in"
+            style={{ borderBottom: "1px solid rgba(255, 255, 255, 0.06)" }}
+          >
+            <label
+              className="mb-2 block text-xs font-medium"
+              style={{ color: "var(--foreground-muted)" }}
+            >
               Active Namespace
             </label>
             <div className="flex gap-2">
@@ -90,34 +143,62 @@ export function Sidebar({
                 placeholder="default"
                 className="text-sm"
               />
-              <Button
-                size="sm"
-                variant="secondary"
-                onClick={handleNsChange}
-              >
-                Set
+              <Button size="sm" variant="secondary" onClick={handleNsChange}>
+                <ChevronRight className="h-3.5 w-3.5" />
               </Button>
             </div>
           </div>
         )}
 
+        {/* Namespace badge */}
+        <div
+          className="px-4 py-3 flex items-center gap-2"
+          style={{ borderBottom: "1px solid rgba(255, 255, 255, 0.04)" }}
+        >
+          <span
+            className="text-[10px] font-medium uppercase tracking-widest"
+            style={{ color: "var(--foreground-subtle)" }}
+          >
+            Namespace
+          </span>
+          <span
+            className="rounded-md px-2 py-0.5 text-xs font-semibold"
+            style={{
+              background: "var(--accent-subtle)",
+              color: "var(--accent)",
+              border: "1px solid rgba(124, 111, 247, 0.2)",
+            }}
+          >
+            {namespace}
+          </span>
+        </div>
+
+        {/* Upload area */}
         <div className="flex-1 overflow-y-auto p-4">
-          <div className="mb-3 flex items-center gap-2">
-            <span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
-              {namespace}
-            </span>
-          </div>
           <UploadForm namespace={namespace} />
         </div>
       </aside>
 
-      {/* Toggle button for desktop when closed (only visible on lg+) */}
+      {/* Desktop toggle button when sidebar is closed */}
       {!open && (
         <button
           onClick={onToggle}
-          className="fixed left-2 top-3 z-30 hidden rounded-md p-1.5 text-gray-500 hover:bg-gray-100 lg:block dark:hover:bg-gray-800"
+          className="fixed left-3 top-3.5 z-30 hidden lg:flex items-center justify-center rounded-xl h-8 w-8 transition-all duration-150"
+          style={{
+            background: "var(--glass-strong)",
+            border: "1px solid var(--border)",
+            color: "var(--foreground-muted)",
+          }}
+          onMouseEnter={e => {
+            (e.currentTarget as HTMLElement).style.color = "var(--accent)";
+            (e.currentTarget as HTMLElement).style.borderColor = "rgba(124, 111, 247, 0.4)";
+          }}
+          onMouseLeave={e => {
+            (e.currentTarget as HTMLElement).style.color = "var(--foreground-muted)";
+            (e.currentTarget as HTMLElement).style.borderColor = "var(--border)";
+          }}
         >
-          <PanelLeftOpen className="h-5 w-5" />
+          <PanelLeftOpen className="h-4 w-4" />
         </button>
       )}
     </>

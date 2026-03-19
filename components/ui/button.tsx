@@ -10,37 +10,61 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean;
 }
 
-const variantStyles: Record<Variant, string> = {
-  primary:
-    "bg-blue-600 text-white hover:bg-blue-700 focus-visible:ring-blue-500",
-  secondary:
-    "bg-gray-100 text-gray-900 hover:bg-gray-200 focus-visible:ring-gray-400 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700",
-  ghost:
-    "bg-transparent text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800",
-  danger:
-    "bg-red-600 text-white hover:bg-red-700 focus-visible:ring-red-500",
+const variantStyles: Record<Variant, React.CSSProperties> = {
+  primary: {
+    background: "linear-gradient(135deg, #7c6ff7, #6b5ff0)",
+    color: "white",
+    boxShadow: "0 4px 14px rgba(124, 111, 247, 0.35)",
+  },
+  secondary: {
+    background: "var(--glass-strong)",
+    color: "var(--foreground-muted)",
+    border: "1px solid var(--border-strong)",
+  },
+  ghost: {
+    background: "transparent",
+    color: "var(--foreground-muted)",
+  },
+  danger: {
+    background: "linear-gradient(135deg, #ef4444, #dc2626)",
+    color: "white",
+    boxShadow: "0 4px 14px rgba(248, 113, 113, 0.3)",
+  },
 };
 
 const sizeStyles: Record<Size, string> = {
-  sm: "px-3 py-1.5 text-sm",
+  sm: "px-3 py-1.5 text-xs",
   md: "px-4 py-2 text-sm",
   lg: "px-6 py-3 text-base",
 };
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = "primary", size = "md", loading, disabled, children, ...props }, ref) => {
+  (
+    {
+      className,
+      style,
+      variant = "primary",
+      size = "md",
+      loading,
+      disabled,
+      children,
+      ...props
+    },
+    ref
+  ) => {
     return (
       <button
         ref={ref}
         disabled={disabled || loading}
         className={cn(
-          "inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-colors",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
-          "disabled:pointer-events-none disabled:opacity-50",
-          variantStyles[variant],
+          "inline-flex items-center justify-center gap-2 rounded-xl font-medium transition-all duration-150",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          "disabled:pointer-events-none disabled:opacity-40",
+          "hover:brightness-110 hover:scale-[1.02] active:scale-[0.98]",
           sizeStyles[size],
           className
         )}
+        style={{ ...variantStyles[variant], ...style }}
         {...props}
       >
         {loading && (
