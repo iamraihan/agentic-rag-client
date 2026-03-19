@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Agentic RAG — Frontend
+
+A modern AI-powered document chat interface built with Next.js. Upload documents to a knowledge base and ask questions — the AI answers with source citations.
+
+## Backend
+
+This frontend requires the Agentic RAG backend to be running.
+
+**Backend repository:** [https://github.com/iamraihan/agentic-rag-backend](https://github.com/iamraihan/agentic-rag-backend)
+
+## Tech Stack
+
+- **Framework:** Next.js 15 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS v4
+- **Animations:** Motion
+- **Forms:** React Hook Form + Zod
+- **Icons:** Lucide React
 
 ## Getting Started
 
-First, run the development server:
+### 1. Clone and install
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/iamraihan/agentic-rag-client
+cd agentic-rag-client
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Configure environment
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+cp .env.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Set your backend URL in `.env.local`:
 
-## Learn More
+```env
+API_BASE_URL=http://localhost:8000
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Start the backend
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Follow the setup instructions in the [backend repo](https://github.com/iamraihan/agentic-rag-backend) and make sure it's running before starting the frontend.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 4. Run the dev server
 
-## Deploy on Vercel
+```bash
+pnpm dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Features
+
+- **Document upload** — PDF, TXT, and Markdown support (up to 10MB)
+- **Namespace management** — Organize documents into separate knowledge bases
+- **AI chat** — Ask questions and get answers with source citations
+- **Animated UI** — Smooth transitions and an AI typing indicator
+- **Dark theme** — Elegant dark-first design with glassmorphism accents
+
+## Project Structure
+
+```
+app/
+  api/          # Next.js API route proxies
+  page.tsx      # Main page
+  layout.tsx    # Root layout
+components/
+  chat/         # ChatPanel, ChatMessage, ChatInput
+  layout/       # Header
+  upload/       # UploadModal, UploadForm
+  ui/           # Button, Input (primitives)
+lib/
+  schemas.ts    # Zod schemas and TypeScript types
+  fetcher.ts    # HTTP utility
+  api-config.ts # Backend URL config
+```
